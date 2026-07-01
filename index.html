@@ -1580,7 +1580,15 @@
         title: { text: null },
         credits: { enabled: true },
         xAxis: { categories: ["Male", "Female"], title: { text: "Sex" } },
-        yAxis: { min: 0, title: { text: "Patients" } },
+        yAxis: {
+          min: 0,
+          title: { text: "Patients" },
+          labels: {
+            formatter: function () {
+              return Highcharts.numberFormat(this.value, 0, ".", ",");
+            }
+          }
+        },
         plotOptions: { column: { stacking: "normal" } },
         series: [
           { name: "Alive", color: "#00b9ab", data: [404060, 735545] },
@@ -1594,7 +1602,15 @@
         title: { text: null },
         credits: { enabled: true },
         xAxis: { categories: cohortAgeCats, title: { text: "Age Group" } },
-        yAxis: { min: 0, title: { text: "Patients" } },
+        yAxis: {
+          min: 0,
+          title: { text: "Patients" },
+          labels: {
+            formatter: function () {
+              return Highcharts.numberFormat(this.value, 0, ".", ",");
+            }
+          }
+        },
         plotOptions: { column: { stacking: "normal" } },
         series: [
           { name: "Alive", color: "#00b9ab", data: [9200, 13200, 19600, 47200, 126300, 351500, 314200, 258405] },
@@ -1608,7 +1624,15 @@
         title: { text: null },
         credits: { enabled: true },
         xAxis: { categories: cohortCounties, title: { text: "County" } },
-        yAxis: { min: 0, title: { text: "Patients" } },
+        yAxis: {
+          min: 0,
+          title: { text: "Patients" },
+          labels: {
+            formatter: function () {
+              return Highcharts.numberFormat(this.value, 0, ".", ",");
+            }
+          }
+        },
         plotOptions: { series: { stacking: "normal" } },
         series: [
           { name: "Alive", color: "#00b9ab", data: [142200, 81200, 70600, 65800, 59400, 54600, 49700, 47200, 45100, 42100] },
