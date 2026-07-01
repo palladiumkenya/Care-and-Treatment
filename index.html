@@ -1473,6 +1473,13 @@
   <script>
     let hivChartsInitialized = false;
 
+    Highcharts.setOptions({
+      lang: {
+        numericSymbols: null,
+        thousandsSep: ","
+      }
+    });
+
     function initializeHivCharts() {
       if (hivChartsInitialized || typeof Highcharts === "undefined") {
         return;
