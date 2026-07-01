@@ -1,0 +1,2174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NDWH Kenya Dashboard Mockup</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #efefef;
+      --panel: #ffffff;
+      --line: #cbd3d8;
+      --ink: #0d1a23;
+      --teal: #00b9ab;
+      --orange: #ef7f1a;
+      --green: #0ea34a;
+      --focus: #0a84ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0;
+      padding: 0 8px;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 34px;
+      background: #fff;
+      border-bottom: 4px solid var(--teal);
+      padding: 0 8px;
+      font-size: 10px;
+      font-weight: 600;
+      overflow-x: auto;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .brand {
+      font-size: 9px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: #334;
+      padding-right: 10px;
+      border-right: 1px solid #ddd;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #1d2e38;
+      padding: 4px 2px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .top-nav a.active {
+      color: #10232f;
+      border-bottom-color: var(--teal);
+    }
+
+    .top-nav a.warn {
+      color: #e64b28;
+    }
+
+    .mode-bar {
+      margin-top: 8px;
+      background: #f7f7f7;
+      border: 1px solid var(--line);
+      height: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      text-align: center;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.2px;
+    }
+
+    .mode-bar .split {
+      border-left: 3px solid #1f1f1f;
+      border-right: 3px solid #1f1f1f;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: #7d8a95;
+      font-size: 9px;
+      font-weight: 500;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .filter {
+      display: grid;
+      gap: 3px;
+    }
+
+    .filter label {
+      font-size: 8px;
+      color: #4f5c67;
+    }
+
+    .select {
+      border: 1px solid var(--line);
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7px;
+      color: #97a3ac;
+      background: #fff;
+      font-size: 8px;
+    }
+
+    .select::after {
+      content: "\25BE";
+      color: #7a8792;
+      font-size: 8px;
+    }
+
+    .filters-bottom {
+      margin-top: 6px;
+      width: 16.4%;
+    }
+
+    .kpis {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+      min-height: 112px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .kpi-title {
+      text-transform: uppercase;
+      font-size: 11px;
+      text-align: center;
+      margin: 0;
+      color: #0a0f15;
+    }
+
+    .kpi-value {
+      font-size: 44px;
+      text-align: center;
+      margin: 16px 0 0;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .kpi-percent {
+      color: var(--green);
+      text-align: right;
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+      position: absolute;
+      top: 40px;
+      right: 10px;
+    }
+
+    .bottom-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 24.4% 50% 25.6%;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .mini {
+      min-height: 92px;
+      margin-bottom: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+      padding: 9px;
+    }
+
+    .mini h4 {
+      margin: 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .mini p {
+      margin: 3px 0 0;
+      font-size: 8px;
+      color: #4f5c67;
+      text-transform: uppercase;
+    }
+
+    .mini strong {
+      display: block;
+      text-align: right;
+      color: var(--orange);
+      font-size: 52px;
+      font-weight: 500;
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    .map-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+      min-height: 296px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .tabs {
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 18px;
+      padding: 6px 8px;
+      font-size: 10px;
+      color: #4f5c67;
+      text-transform: uppercase;
+    }
+
+    .tabs span:first-child {
+      color: #3b5568;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .map-stage {
+      display: grid;
+      place-items: center;
+      background: #fafafa;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kenya-shape {
+      width: 180px;
+      height: 220px;
+      clip-path: polygon(28% 8%, 48% 1%, 62% 10%, 74% 10%, 84% 18%, 80% 30%, 90% 42%, 82% 55%, 81% 70%, 75% 79%, 77% 94%, 64% 100%, 52% 92%, 39% 88%, 25% 78%, 22% 63%, 14% 53%, 15% 38%, 8% 27%, 19% 18%);
+      background: radial-gradient(circle at 34% 44%, #2f2f38 0 12%, #57df86 13% 16%, #2f2f38 17% 33%, #2f2f38 34% 100%);
+      box-shadow: inset 0 0 0 2px #d8d8d8;
+      opacity: 0.92;
+    }
+
+    .panel-text {
+      min-height: 296px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+      padding: 12px;
+      font-size: 10px;
+      line-height: 1.45;
+      color: #1f2f3c;
+    }
+
+    .panel-text h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .panel-text ul {
+      margin: 6px 0 12px 16px;
+      padding: 0;
+    }
+
+    .panel-text li {
+      margin-bottom: 3px;
+    }
+
+    .footer-line {
+      margin-top: 18px;
+      border-top: 6px solid var(--teal);
+      height: 22px;
+      background: #f7f7f7;
+      color: #808a93;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      font-size: 8px;
+    }
+
+    .content-sections {
+      margin-top: 12px;
+      display: none;
+      gap: 12px;
+    }
+
+    body.show-hiv-treatment .mode-bar,
+    body.show-hiv-treatment .filters,
+    body.show-hiv-treatment .filters-bottom,
+    body.show-hiv-treatment .kpis,
+    body.show-hiv-treatment .bottom-grid {
+      display: none;
+    }
+
+    body.show-hiv-treatment .content-sections {
+      display: grid;
+    }
+
+    .section-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
+      padding: 12px;
+    }
+
+    .section-card h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-card p {
+      margin: 0;
+      font-size: 11px;
+      color: #243744;
+      line-height: 1.5;
+    }
+
+    .hiv-panel {
+      border: 1px solid var(--line);
+      background: #f4f6f8;
+      padding: 8px;
+    }
+
+    .hiv-subtabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
+      position: sticky;
+      top: 38px;
+      z-index: 20;
+      background: #f4f6f8;
+    }
+
+    .hiv-tab {
+      border: 0;
+      background: transparent;
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #4f5c67;
+      padding: 6px 4px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      min-height: 28px;
+    }
+
+    .hiv-tab.active {
+      color: #112532;
+      border-bottom-color: var(--teal);
+      font-weight: 700;
+    }
+
+    .hiv-view {
+      display: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px;
+    }
+
+    .hiv-view.active {
+      display: block;
+    }
+
+    .vl-subtabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
+    }
+
+    .vl-tab {
+      border: 0;
+      background: transparent;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #4f5c67;
+      padding: 6px 5px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      min-height: 30px;
+      font-weight: 700;
+    }
+
+    .vl-tab.active {
+      color: #112532;
+      border-bottom-color: var(--teal);
+    }
+
+    .vl-view {
+      display: none;
+    }
+
+    .vl-view.active {
+      display: block;
+    }
+
+    .hiv-banner {
+      border-top: 6px solid var(--teal);
+      border-bottom: 1px solid var(--line);
+      background: #fdfdfd;
+      padding: 9px;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .hiv-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .hiv-kpi {
+      border: 1px solid var(--line);
+      padding: 8px;
+      background: #fcfcfc;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .hiv-kpi:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .hiv-kpi h4 {
+      margin: 0;
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #4f5c67;
+      font-weight: 700;
+    }
+
+    .hiv-kpi p {
+      margin: 6px 0 0;
+      font-size: 34px;
+      color: #0d1a23;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .hiv-kpi .hiv-share {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .hiv-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(90px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .hiv-filter {
+      display: grid;
+      gap: 3px;
+    }
+
+    .hiv-filter label {
+      font-size: 8px;
+      color: #4f5c67;
+      text-transform: capitalize;
+    }
+
+    .hiv-filter .select {
+      height: 20px;
+      font-size: 8px;
+      padding: 0 6px;
+      cursor: pointer;
+    }
+
+    .hiv-definition {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      background: #fafcfd;
+      padding: 8px;
+      font-size: 9px;
+      color: #364753;
+    }
+
+    .hiv-chart-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .hiv-chart {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px;
+      min-height: 220px;
+    }
+
+    .hiv-chart h4 {
+      margin: 0;
+      text-align: center;
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #35424c;
+    }
+
+    .pie-wrap {
+      margin-top: 10px;
+      display: grid;
+      place-items: center;
+      gap: 8px;
+    }
+
+    .pie-mock {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: conic-gradient(#ff3d8d 0 65.5%, #161059 65.5% 100%);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 1px #d8dee3;
+    }
+
+    .pie-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 9px;
+      color: #3d4e5a;
+    }
+
+    .pie-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .pyramid-wrap {
+      margin-top: 10px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .age-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 1fr;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .age-row span {
+      font-size: 8px;
+      color: #5a6a75;
+      text-align: right;
+    }
+
+    .age-bar {
+      height: 11px;
+      border-radius: 1px;
+    }
+
+    .age-bar.male {
+      margin-left: auto;
+      background: #161059;
+    }
+
+    .age-bar.female {
+      background: #ff3d8d;
+    }
+
+    .hiv-placeholder {
+      font-size: 10px;
+      color: #495863;
+      padding: 10px;
+      border: 1px dashed var(--line);
+      background: #fcfcfc;
+      margin-top: 8px;
+    }
+
+    .chart-host {
+      margin-top: 8px;
+      width: 100%;
+      min-height: 260px;
+    }
+
+    .chart-host.tall {
+      min-height: 320px;
+    }
+
+    .facility-table-wrap {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      overflow: auto;
+    }
+
+    .facility-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px;
+      min-width: 700px;
+    }
+
+    .facility-table th,
+    .facility-table td {
+      border: 1px solid #d9e0e6;
+      padding: 6px;
+      text-align: left;
+    }
+
+    .facility-table th {
+      background: #eef3f7;
+      text-transform: uppercase;
+      font-size: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .hiv-extra-charts {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .hiv-wide-chart {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px;
+      min-height: 180px;
+    }
+
+    .hiv-wide-chart h4 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 9px;
+      color: #35424c;
+      text-align: center;
+    }
+
+    .chart-caption {
+      margin-top: 6px;
+      font-size: 9px;
+      color: #5a6a75;
+      text-align: center;
+    }
+
+    .line-mock {
+      margin-top: 10px;
+      height: 120px;
+      background:
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px) 0 0 / 8.3% 100%,
+        linear-gradient(to top, rgba(0, 0, 0, 0.04) 1px, transparent 1px) 0 0 / 100% 25%,
+        linear-gradient(135deg, #00b9ab 0%, #00b9ab 35%, transparent 36%),
+        linear-gradient(160deg, transparent 0 30%, #ff3d8d 31% 33%, transparent 34% 100%);
+      border: 1px solid #e1e7eb;
+    }
+
+    .stack-mock {
+      margin-top: 10px;
+      height: 120px;
+      display: grid;
+      grid-template-rows: repeat(8, 1fr);
+      gap: 4px;
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: 18% 24% 18% 40%;
+      height: 100%;
+      border: 1px solid #e5eaee;
+      overflow: hidden;
+    }
+
+    .stack-row i {
+      display: block;
+      height: 100%;
+    }
+
+    .stack-row i:nth-child(1) {
+      background: #00b9ab;
+    }
+
+    .stack-row i:nth-child(2) {
+      background: #1f9cf0;
+    }
+
+    .stack-row i:nth-child(3) {
+      background: #f39c12;
+    }
+
+    .stack-row i:nth-child(4) {
+      background: #ff3d8d;
+    }
+
+    .bar-mock {
+      margin-top: 10px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .bar-mock div {
+      height: 12px;
+      background: linear-gradient(to right, #00b9ab, #00d2b7);
+      border: 1px solid #d8e6e4;
+    }
+
+    .hiv-note {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #4f5c67;
+    }
+
+    .top-nav a:focus-visible,
+    .hiv-tab:focus-visible,
+    .back-to-top:focus-visible,
+    .skip-link:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 8px;
+      top: -36px;
+      background: #0b2231;
+      color: #fff;
+      padding: 7px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 6px;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      border: 0;
+      background: #0f364b;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 60;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 1080px) {
+      .filters {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .filters-bottom {
+        width: 32%;
+      }
+
+      .kpis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-text,
+      .map-panel {
+        min-height: 240px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filters-bottom {
+        width: 48%;
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi-value,
+      .mini strong {
+        font-size: 36px;
+      }
+
+      .kpi-percent {
+        margin-right: 10px;
+      }
+
+      .hiv-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .hiv-kpi p {
+        font-size: 28px;
+      }
+
+      .hiv-filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hiv-chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#hiv-treatment">Skip to HIV Treatment</a>
+  <header class="top-nav">
+    <div class="brand">Integrated<br/>Data Warehouse</div>
+    <a href="#home">Home</a>
+    <a href="#reporting-rates">Reporting Rates</a>
+    <a href="#hiv-testing-prevention">HIV Testing &amp; Prevention</a>
+    <a href="#hiv-treatment/newly-started">HIV Treatment</a>
+    <a href="#vtp">VTP</a>
+    <a href="#service-desk">Service Desk</a>
+  </header>
+
+  <main id="home" class="container">
+    <section class="mode-bar">
+      <span>HOME</span>
+      <span class="split">HMIS STATISTICS</span>
+    </section>
+
+    <section class="filters">
+      <div class="filter">
+        <label>County</label>
+        <div class="select">Select County</div>
+      </div>
+      <div class="filter">
+        <label>Sub-County</label>
+        <div class="select">Select Sub-County</div>
+      </div>
+      <div class="filter">
+        <label>Facility</label>
+        <div class="select">Select Facility</div>
+      </div>
+      <div class="filter">
+        <label>Partner</label>
+        <div class="select">Select Partner</div>
+      </div>
+      <div class="filter">
+        <label>Agency</label>
+        <div class="select">Select Agency</div>
+      </div>
+      <div class="filter">
+        <label>Sex</label>
+        <div class="select">Select Sex</div>
+      </div>
+    </section>
+
+    <section class="filters-bottom">
+      <div class="filter">
+        <label>Age Group</label>
+        <div class="select">Select Age Group</div>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <article class="card">
+        <h2 class="kpi-title">Current On ART as at May 2026</h2>
+        <p class="kpi-value">1,139,605</p>
+      </article>
+      <article class="card">
+        <h2 class="kpi-title">Eligible for VL</h2>
+        <p class="kpi-percent">99%</p>
+        <p class="kpi-value">1,127,762</p>
+      </article>
+      <article class="card">
+        <h2 class="kpi-title">Valid Viral Load</h2>
+        <p class="kpi-percent">76%</p>
+        <p class="kpi-value">861,315</p>
+      </article>
+      <article class="card">
+        <h2 class="kpi-title">Virally Suppressed</h2>
+        <p class="kpi-percent">96%</p>
+        <p class="kpi-value">824,099</p>
+      </article>
+    </section>
+
+    <section class="bottom-grid">
+      <section>
+        <article class="mini">
+          <h4>Adults on ART</h4>
+          <p>15+ Years</p>
+          <strong>1,111,657</strong>
+        </article>
+        <article class="mini">
+          <h4>Children on ART</h4>
+          <p>0-14 Years</p>
+          <strong>27,945</strong>
+        </article>
+        <article class="mini">
+          <h4>Adolescents on ART</h4>
+          <p>10-19 Years</p>
+          <strong>47,271</strong>
+        </article>
+      </section>
+
+      <section class="map-panel">
+        <div class="tabs">
+          <span>EMR Sites</span>
+          <span>Current On ART</span>
+          <span>Valid Viral Load</span>
+          <span>Viral Suppression</span>
+        </div>
+        <div class="map-stage">
+          <div class="kenya-shape" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <aside class="panel-text">
+        <h3>Welcome</h3>
+        <p>
+          Since the inception of the National Data Warehouse (NDWH), a cumulative total of
+          2695 health facilities across 45 counties in Kenya, supported by various service
+          delivery partners (SDPs), have uploaded care and treatment data to the platform.
+        </p>
+        <p>
+          As of May 2026, 1821 facilities submitted care and treatment datasets to the NDWH,
+          supported by 34 SDPs operating in 39 counties.
+        </p>
+
+        <h3>Key Highlights</h3>
+        <ul>
+          <li>Trends in identification of new positives cumulatively and by month.</li>
+          <li>Male and female identification trends by month.</li>
+          <li>Overall MMD uptake based on last month patients current on ART.</li>
+        </ul>
+
+        <h3>EMR Sites in Kenya</h3>
+        <p><strong>Kenya EMR</strong></p>
+        <p>Use the map to zero in to certain counties to understand program reporting.</p>
+      </aside>
+    </section>
+
+    <section class="content-sections">
+      <article id="hiv-treatment" class="section-card">
+        <h3>HIV Treatment</h3>
+        <div class="hiv-panel">
+          <div class="hiv-subtabs" role="tablist" aria-label="HIV Treatment Tabs">
+            <button id="tab-newly-started" class="hiv-tab active" data-target="view-newly-started" data-slug="newly-started" role="tab" aria-controls="view-newly-started" aria-selected="true">Newly Started On ART</button>
+            <button id="tab-tpt" class="hiv-tab" data-target="view-tpt" data-slug="tpt" role="tab" aria-controls="view-tpt" aria-selected="false">TPT</button>
+            <button id="tab-current-on-art" class="hiv-tab" data-target="view-current-on-art" data-slug="current-on-art" role="tab" aria-controls="view-current-on-art" aria-selected="false">Current On ART</button>
+            <button id="tab-art-optimization" class="hiv-tab" data-target="view-art-optimization" data-slug="art-optimization" role="tab" aria-controls="view-art-optimization" aria-selected="false">ART Regimen</button>
+            <button id="tab-adverse-events" class="hiv-tab" data-target="view-adverse-events" data-slug="adverse-events" role="tab" aria-controls="view-adverse-events" aria-selected="false">Adverse Drug Reactions Reported</button>
+            <button id="tab-dsd" class="hiv-tab" data-target="view-dsd" data-slug="dsd" role="tab" aria-controls="view-dsd" aria-selected="false">DSD</button>
+            <button id="tab-vl-monitoring" class="hiv-tab" data-target="view-vl-monitoring" data-slug="vl-monitoring" role="tab" aria-controls="view-vl-monitoring" aria-selected="false">VL Monitoring</button>
+            <button id="tab-treatment-outcomes" class="hiv-tab" data-target="view-treatment-outcomes" data-slug="treatment-outcomes" role="tab" aria-controls="view-treatment-outcomes" aria-selected="false">TREATMENT OUTCOMES by Cohort</button>
+            <button id="tab-ahd" class="hiv-tab" data-target="view-ahd" data-slug="ahd" role="tab" aria-controls="view-ahd" aria-selected="false">AHD</button>
+            <button id="tab-ncd" class="hiv-tab" data-target="view-ncd" data-slug="ncd" role="tab" aria-controls="view-ncd" aria-selected="false">NCD</button>
+          </div>
+
+          <section id="view-newly-started" class="hiv-view active" role="tabpanel" aria-labelledby="tab-newly-started">
+            <div class="hiv-banner">Newly Started On ART</div>
+            <div class="hiv-filter-grid">
+              <div class="hiv-filter"><label>County</label><div class="select">Select County</div></div>
+              <div class="hiv-filter"><label>Sub-County</label><div class="select">Select Sub-County</div></div>
+              <div class="hiv-filter"><label>Facility</label><div class="select">Select Facility</div></div>
+              <div class="hiv-filter"><label>Partner</label><div class="select">Select Partner</div></div>
+              <div class="hiv-filter"><label>Agency</label><div class="select">Select Agency</div></div>
+              <div class="hiv-filter"><label>Period</label><div class="select">Period</div></div>
+            </div>
+
+            <div class="hiv-definition">Indicator definition: Newly started on ART = Number of patients who were started on ART within the month of May 2026.</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Newly Started On ART</h4>
+                <p>3,436</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Males Started On ART</h4>
+                <p>1,187 <span class="hiv-share">35%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Females Started On ART</h4>
+                <p>2,249 <span class="hiv-share">65%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Adults Started On ART (15+ Yrs)</h4>
+                <p>3,320 <span class="hiv-share">97%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Children Started On ART (1-14 Yrs)</h4>
+                <p>116 <span class="hiv-share">3%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Adolescents Started On ART (10-19 Yrs)</h4>
+                <p>135 <span class="hiv-share">4%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>AYPs Started On ART (10-24 Yrs)</h4>
+                <p>618 <span class="hiv-share">18%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Young Adult Started On ART (15-24 Yrs)</h4>
+                <p>590 <span class="hiv-share">17%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Proportion Newly Started on ART Receiving CD4 Test</h4>
+                <p>2,748 <span class="hiv-share">80%</span></p>
+              </article>
+            </div>
+
+            <div class="hiv-chart-grid">
+              <section class="hiv-chart">
+                <h4>Newly Started on ART by Sex</h4>
+                <div id="chart-newly-sex" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-chart">
+                <h4>Distribution of Patients Newly Started on ART by Age and Sex</h4>
+                <div id="chart-age-sex" class="chart-host"></div>
+              </section>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>Trends of Newly Started Patients on ART</h4>
+                <div id="chart-trend-newly" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>New on Treatment Compared to HTS Positives</h4>
+                <div id="chart-new-vs-hts" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-tpt" class="hiv-view" role="tabpanel" aria-labelledby="tab-tpt">
+            <div class="hiv-banner">TPT</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Newly Initiated on TPT</h4>
+                <p>3,150</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Ever on TPT</h4>
+                <p>845,000</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>Newly Initiated on ART vs Newly Initiated on TPT</h4>
+                <div id="chart-tpt-new-vs-art" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Tx_Curr vs Ever on TPT</h4>
+                <div id="chart-tpt-ever-vs-txcurr" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-current-on-art" class="hiv-view" role="tabpanel" aria-labelledby="tab-current-on-art">
+            <div class="hiv-banner">Current On ART</div>
+            <div class="hiv-placeholder">Current on ART metrics and trend charts will appear in this tab.</div>
+          </section>
+
+          <section id="view-art-optimization" class="hiv-view" role="tabpanel" aria-labelledby="tab-art-optimization">
+            <div class="hiv-banner">ART Regimen</div>
+
+            <div class="hiv-definition">Adults</div>
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Adults on Initial Regimen</h4>
+                <p>596,240</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Adults on Subsequent Regimen</h4>
+                <p>492,810</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Adults on Constructive Regimen</h4>
+                <p>22,607</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>ART Regimen Adults - Proportion of Adults by Regimen</h4>
+                <div id="chart-art-regimen-adults" class="chart-host"></div>
+              </section>
+            </div>
+
+            <div class="hiv-definition">CALHIV</div>
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>CALHIV on Initial Regimen</h4>
+                <p>16,420</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>CALHIV on Subsequent Regimen</h4>
+                <p>8,940</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>CALHIV on Constructive Regimen</h4>
+                <p>1,220</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>Proportion of CALHIV by Regimen</h4>
+                <div id="chart-art-regimen-calhiv" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Regimen Distribution Based on Weight Bands</h4>
+                <div id="chart-art-regimen-weight-bands" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-adverse-events" class="hiv-view" role="tabpanel" aria-labelledby="tab-adverse-events">
+            <div class="hiv-banner">Adverse Drug Reactions Reported</div>
+
+            <div class="hiv-chart-grid">
+              <section class="hiv-chart">
+                <h4>Reaction</h4>
+                <div id="chart-ae-reaction" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-chart">
+                <h4>Severity/Grading</h4>
+                <div id="chart-ae-severity" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-chart">
+                <h4>Suspected Molecule</h4>
+                <div id="chart-ae-molecule" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-chart">
+                <h4>Action Taken</h4>
+                <div id="chart-ae-action" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-dsd" class="hiv-view" role="tabpanel" aria-labelledby="tab-dsd">
+            <div class="hiv-banner">DSD</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Current on ART</h4>
+                <p>1,139,605</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Established Patients</h4>
+                <p>982,440</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Patients on Facility Model</h4>
+                <p>678,520</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Patients on Community Models</h4>
+                <p>461,085</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>Facility DSD Models - Less Intense and More Intense</h4>
+                <div id="chart-dsd-facility-models" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Community DSD Models</h4>
+                <div id="chart-dsd-community-models" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>ART Distribution by Months</h4>
+                <div id="chart-dsd-art-months" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-vl-monitoring" class="hiv-view" role="tabpanel" aria-labelledby="tab-vl-monitoring">
+            <div class="hiv-banner">VL Monitoring</div>
+
+            <div class="vl-subtabs" role="tablist" aria-label="Viral Load Monitoring Tabs">
+              <button id="vl-tab-uptake" class="vl-tab active" data-target="vl-view-uptake" type="button" role="tab" aria-controls="vl-view-uptake" aria-selected="true">Viral Load Uptake</button>
+              <button id="vl-tab-outcomes-unsupressed" class="vl-tab" data-target="vl-view-outcomes-unsupressed" type="button" role="tab" aria-controls="vl-view-outcomes-unsupressed" aria-selected="false">Viral Load Outcomes Unsupressed</button>
+            </div>
+
+            <section id="vl-view-uptake" class="vl-view active" role="tabpanel" aria-labelledby="vl-tab-uptake">
+              <div class="hiv-kpis">
+                <article class="hiv-kpi">
+                  <h4>PLHIV</h4>
+                  <p>1,139,605</p>
+                </article>
+                <article class="hiv-kpi">
+                  <h4>Eligible for VL</h4>
+                  <p>1,127,762 <span class="hiv-share">99%</span></p>
+                </article>
+                <article class="hiv-kpi">
+                  <h4>VL Done</h4>
+                  <p>861,315 <span class="hiv-share">76%</span></p>
+                </article>
+                <article class="hiv-kpi">
+                  <h4>Virally Suppressed</h4>
+                  <p>824,099 <span class="hiv-share">96%</span></p>
+                </article>
+              </div>
+
+              <div class="hiv-extra-charts">
+                <section class="hiv-wide-chart">
+                  <h4>OVERALL VL UPTAKE AND SUPPRESSION AMONG CURRENT ON ART PATIENTS</h4>
+                  <div id="chart-vl-overall" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>MEDIAN TIME TO 1ST VL AFTER ART INITIATION BY YEAR OF ART INITIATION</h4>
+                  <div id="chart-vl-median-year" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>VL UPTAKE BY AGE GROUP</h4>
+                  <div id="chart-vl-age-group" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>VL UPTAKE BY COUNTY</h4>
+                  <div id="chart-vl-county" class="chart-host"></div>
+                </section>
+              </div>
+            </section>
+
+            <section id="vl-view-outcomes-unsupressed" class="vl-view" role="tabpanel" aria-labelledby="vl-tab-outcomes-unsupressed">
+              <div class="hiv-banner">Viral Load Outcomes Unsupressed</div>
+
+              <div class="hiv-definition">Definitions: LDL = &lt;=50, Suppressed =&gt; Patients who are current on treatment with valid viral load results of 50 - 199 copies/ml, LLVL =&gt; Patients who are current on treatment with valid viral load results of 200 - 999 copies/ml and Suspected treatment failure (STF) =&gt; Patients who are current on treatment with valid viral load results of 1000 and above copies/ml.</div>
+
+              <div class="hiv-kpis">
+                <article class="hiv-kpi">
+                  <h4>Suppressed</h4>
+                  <p>756,210 <span class="hiv-share">88%</span></p>
+                </article>
+                <article class="hiv-kpi">
+                  <h4>Unsuppressed</h4>
+                  <p>105,105 <span class="hiv-share">12%</span></p>
+                </article>
+              </div>
+
+              <div class="hiv-extra-charts">
+                <section class="hiv-wide-chart">
+                  <h4>Viral Load Suppression (LDL, Unsuppressed, STF) by Age and Sex</h4>
+                  <div id="chart-vl-outcomes-age-sex" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>Viral Suppression (Less Than 200 CPM) Among Current on ART Patients by Age Group</h4>
+                  <div id="chart-vl-suppression-age-group" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>VL Suppression by County</h4>
+                  <div id="chart-vl-suppression-county" class="chart-host"></div>
+                </section>
+
+                <section class="hiv-wide-chart">
+                  <h4>Number of Patients with High Viral Load - By Facility</h4>
+                  <div class="facility-table-wrap">
+                    <table class="facility-table" aria-label="High viral load by facility">
+                      <thead>
+                        <tr>
+                          <th>Facility</th>
+                          <th>High Viral Load</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Kenyatta National Hospital</td><td>1,260</td></tr>
+                        <tr><td>Mbagathi County Hospital</td><td>980</td></tr>
+                        <tr><td>Coast General Teaching and Referral</td><td>910</td></tr>
+                        <tr><td>Jaramogi Oginga Odinga Teaching and Referral</td><td>860</td></tr>
+                        <tr><td>Nakuru PGH</td><td>740</td></tr>
+                        <tr><td>Machakos Level 5</td><td>690</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+            </section>
+          </section>
+
+          <section id="view-treatment-outcomes" class="hiv-view" role="tabpanel" aria-labelledby="tab-treatment-outcomes">
+            <div class="hiv-banner">TREATMENT OUTCOMES by Cohort</div>
+
+            <div class="hiv-definition">Indicator Definition: Started ART includes patients with documented outcomes. Outcomes displayed are Alive, IIT and Dead.</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Started ART</h4>
+                <p>1357k</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Alive</h4>
+                <p>1,139,605</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>IIT</h4>
+                <p>164,920</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Dead</h4>
+                <p>52,455</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>ART Treatment Outcomes by Sex</h4>
+                <div id="chart-cohort-sex" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>ART Treatment Outcomes by Age Group</h4>
+                <div id="chart-cohort-age-group" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>ART Treatment Outcomes by County</h4>
+                <div id="chart-cohort-county" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-ahd" class="hiv-view" role="tabpanel" aria-labelledby="tab-ahd">
+            <div class="hiv-banner">AHD</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>At Risk of AHD</h4>
+                <p>142,860</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Newly Diagnosed</h4>
+                <p>3,436</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>IIT</h4>
+                <p>164,920</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>PLHIV Hospitalized</h4>
+                <p>18,420</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Treatment Failure</h4>
+                <p>29,115</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>CD4 Testing for PLHIV with AHD Risk</h4>
+                <div id="chart-ahd-cd4-testing" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Screening for CM and TB</h4>
+                <div id="chart-ahd-cm-tb-screening" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Nutrition Assessment for AHD Adults</h4>
+                <div id="chart-ahd-nutrition-adults" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>AHD Outcomes</h4>
+                <div id="chart-ahd-outcomes" class="chart-host"></div>
+              </section>
+            </div>
+          </section>
+
+          <section id="view-ncd" class="hiv-view" role="tabpanel" aria-labelledby="tab-ncd">
+            <div class="hiv-banner">NCD</div>
+            <div class="hiv-definition">Cascade as listed below.</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Total PLHIV</h4>
+                <p>1,139,605</p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>NCD Cascade</h4>
+                <div id="chart-ncd-cascade" class="chart-host tall"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </article>
+
+      <article id="service-desk" class="section-card">
+        <div aria-label="Service Desk workspace"></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer-line">
+    <span>HMIS Statistics</span>
+    <span>copyright 2026 Palladium Group (Mockup)</span>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">Top</button>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+
+  <script>
+    let hivChartsInitialized = false;
+
+    function initializeHivCharts() {
+      if (hivChartsInitialized || typeof Highcharts === "undefined") {
+        return;
+      }
+
+      hivChartsInitialized = true;
+
+      const months12 = ["JUNE 2025", "JULY 2025", "AUGUST 2025", "SEPTEMBER 2025", "OCTOBER 2025", "NOVEMBER 2025", "DECEMBER 2025", "JANUARY 2026", "FEBRUARY 2026", "MARCH 2026", "APRIL 2026", "MAY 2026"];
+      const ageCats = ["Under 1", "01 to 04", "05 to 09", "10 to 14", "15 to 19", "20 to 24", "25 to 29", "30 to 34", "35 to 39", "40 to 44", "45 to 49", "50 to 54", "55 to 59", "60 to 64", "65+"];
+      const femaleAge = [3, 28, 15, 16, 96, 410, 381, 371, 316, 227, 132, 117, 60, 48, 29];
+      const maleAge = [6, 29, 7, 12, 11, 73, 119, 185, 178, 188, 141, 103, 63, 37, 35];
+      const cohortAgeCats = ["0-4", "5-9", "10-14", "15-19", "20-24", "25-34", "35-44", "45+"];
+      const cohortCounties = ["Nairobi", "Kiambu", "Nakuru", "Kisumu", "Mombasa", "Kilifi", "Kakamega", "Homa Bay", "Migori", "Machakos"];
+
+      Highcharts.chart("chart-newly-sex", {
+        chart: { type: "pie", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        colors: ["#ff3d8d", "#161059"],
+        tooltip: { pointFormat: "<b>{point.percentage:.1f}%</b>" },
+        plotOptions: { pie: { dataLabels: { enabled: true, format: "{point.name}: {point.percentage:.1f}%" } } },
+        series: [{ name: "Sex", data: [{ name: "Female", y: 65.5 }, { name: "Male", y: 34.5 }] }]
+      });
+
+      Highcharts.chart("chart-age-sex", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: ageCats, title: { text: null } },
+        yAxis: {
+          title: { text: "Number Positive" },
+          labels: {
+            formatter: function () {
+              return Math.abs(this.value);
+            }
+          }
+        },
+        tooltip: {
+          formatter: function () {
+            return "<b>" + this.series.name + "</b>: " + Math.abs(this.y);
+          }
+        },
+        legend: { reversed: false },
+        plotOptions: { series: { stacking: "normal" } },
+        series: [
+          { name: "Female", color: "#ff3d8d", data: femaleAge },
+          { name: "Male", color: "#161059", data: maleAge.map((v) => -v) }
+        ]
+      });
+
+      Highcharts.chart("chart-trend-newly", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: months12, title: { text: "Months" } },
+        yAxis: { title: { text: "Number of Patients" }, min: 3000, max: 6500, tickInterval: 500 },
+        series: [{ name: "Number of Patients", color: "#00b9ab", data: [6208, 6026, 4909, 5090, 5607, 5478, 4559, 5939, 5443, 5202, 4615, 3436] }]
+      });
+
+      Highcharts.chart("chart-new-vs-hts", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: ["JUNE 2025", "JULY 2025", "AUGUST 2025", "SEPTEMBER 2025", "OCTOBER 2025", "NOVEMBER 2025", "DECEMBER 2025", "JANUARY 2026", "FEBRUARY 2026", "MARCH 2026", "APRIL 2026"], title: { text: "Months" } },
+        yAxis: { title: { text: "Number of Patients" }, min: 0, max: 7000, tickInterval: 1000 },
+        series: [
+          { name: "Total New on Treatment", color: "#00b9ab", data: [6026, 4909, 5090, 5607, 5478, 4559, 5939, 5443, 5202, 4615, 3436] },
+          { name: "Total HTS Positives", color: "#ff3d8d", data: [4672, 3755, 3755, 4562, 4568, 3754, 4861, 4438, 4227, 3900, 2979] }
+        ]
+      });
+
+      Highcharts.chart("chart-tpt-new-vs-art", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: months12, title: { text: "Months" } },
+        yAxis: { title: { text: "Patients" }, min: 0 },
+        series: [
+          { name: "Newly Initiated on ART", color: "#00b9ab", data: [6208, 6026, 4909, 5090, 5607, 5478, 4559, 5939, 5443, 5202, 4615, 3436] },
+          { name: "Newly Initiated on TPT", color: "#ef7f1a", data: [3800, 3725, 3450, 3520, 3605, 3580, 3400, 3490, 3380, 3300, 3210, 3150] }
+        ]
+      });
+
+      Highcharts.chart("chart-tpt-ever-vs-txcurr", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: months12, title: { text: "Months" } },
+        yAxis: { title: { text: "Patients" }, min: 0 },
+        series: [
+          { name: "Tx_Curr", color: "#161059", data: [1092000, 1097500, 1101200, 1105800, 1110400, 1113300, 1117200, 1120500, 1124200, 1127800, 1131800, 1139605] },
+          { name: "Ever on TPT", color: "#ff3d8d", data: [780000, 786500, 792000, 798500, 804500, 810000, 816000, 822500, 828000, 834000, 839000, 845000] }
+        ]
+      });
+
+      Highcharts.chart("chart-cohort-sex", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: ["Male", "Female"], title: { text: "Sex" } },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { column: { stacking: "normal" } },
+        series: [
+          { name: "Alive", color: "#00b9ab", data: [404060, 735545] },
+          { name: "IIT", color: "#ef7f1a", data: [65310, 99610] },
+          { name: "Dead", color: "#161059", data: [22510, 29945] }
+        ]
+      });
+
+      Highcharts.chart("chart-cohort-age-group", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: cohortAgeCats, title: { text: "Age Group" } },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { column: { stacking: "normal" } },
+        series: [
+          { name: "Alive", color: "#00b9ab", data: [9200, 13200, 19600, 47200, 126300, 351500, 314200, 258405] },
+          { name: "IIT", color: "#ef7f1a", data: [2100, 2600, 3800, 8200, 19100, 51800, 44700, 32620] },
+          { name: "Dead", color: "#161059", data: [700, 820, 1100, 2400, 6200, 15200, 14400, 11635] }
+        ]
+      });
+
+      Highcharts.chart("chart-cohort-county", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: cohortCounties, title: { text: "County" } },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { series: { stacking: "normal" } },
+        series: [
+          { name: "Alive", color: "#00b9ab", data: [142200, 81200, 70600, 65800, 59400, 54600, 49700, 47200, 45100, 42100] },
+          { name: "IIT", color: "#ef7f1a", data: [21300, 11400, 9800, 9200, 8600, 7900, 7100, 6800, 6400, 5900] },
+          { name: "Dead", color: "#161059", data: [7200, 3900, 3400, 3200, 2900, 2700, 2400, 2300, 2100, 2000] }
+        ]
+      });
+
+      Highcharts.chart("chart-art-regimen-adults", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        exporting: { enabled: true },
+        xAxis: {
+          categories: ["Initial Regimen", "Subsequent Regimen", "Constructive Regimen"],
+          title: { text: "Regimen Line" }
+        },
+        yAxis: { min: 0, title: { text: "Adults Current on ART" } },
+        tooltip: {
+          pointFormatter: function () {
+            return "<span style=\"color:" + this.color + "\">●</span> " + this.category + ": <b>" + Highcharts.numberFormat(this.y, 0) + "</b><br/>";
+          }
+        },
+        series: [
+          {
+            name: "Adults",
+            colorByPoint: true,
+            colors: ["#161059", "#00b9ab", "#ef7f1a"],
+            data: [596240, 492810, 22607],
+            dataLabels: {
+              enabled: true,
+              formatter: function () {
+                return Highcharts.numberFormat(this.y, 0);
+              }
+            }
+          }
+        ]
+      });
+
+      Highcharts.chart("chart-art-regimen-calhiv", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        exporting: { enabled: true },
+        xAxis: {
+          categories: ["Initial Regimen", "Subsequent Regimen", "Constructive Regimen"],
+          title: { text: "Regimen Line" }
+        },
+        yAxis: { min: 0, title: { text: "CALHIV Current on ART" } },
+        series: [
+          {
+            name: "CALHIV",
+            colorByPoint: true,
+            colors: ["#161059", "#00b9ab", "#ef7f1a"],
+            data: [16420, 8940, 1220],
+            dataLabels: {
+              enabled: true,
+              formatter: function () {
+                return Highcharts.numberFormat(this.y, 0);
+              }
+            }
+          }
+        ]
+      });
+
+      Highcharts.chart("chart-art-regimen-weight-bands", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["<2 kgs", ">=2 kgs", "3 to <24.9 kg", ">=25 - 29 kg", ">=30 kgs"],
+          title: { text: "Weight Band" }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        legend: { enabled: true },
+        series: [
+          {
+            name: "Initial Regimen",
+            color: "#161059",
+            data: [180, 2400, 18300, 94200, 465000]
+          },
+          {
+            name: "Subsequent Regimen",
+            color: "#00b9ab",
+            data: [60, 1100, 9600, 57200, 424850]
+          },
+          {
+            name: "Constructive Regimen",
+            color: "#ef7f1a",
+            data: [10, 120, 680, 2900, 20117]
+          }
+        ]
+      });
+
+      Highcharts.chart("chart-ae-reaction", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Rash", "Nausea", "Dizziness", "Headache", "Vomiting", "Anemia"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Reports" } },
+        series: [{ name: "Reports", color: "#00b9ab", data: [185, 149, 121, 110, 92, 78] }]
+      });
+
+      Highcharts.chart("chart-ae-severity", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Grade 1", "Grade 2", "Grade 3", "Grade 4"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Reports" } },
+        series: [{ name: "Severity", color: "#ef7f1a", data: [278, 214, 96, 37] }]
+      });
+
+      Highcharts.chart("chart-ae-molecule", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["DTG", "EFV", "ATV/r", "AZT", "TDF", "LPV/r"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Reports" } },
+        series: [{ name: "Suspected Molecule", color: "#161059", data: [233, 162, 96, 84, 73, 55] }]
+      });
+
+      Highcharts.chart("chart-ae-action", {
+        chart: { type: "pie", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        tooltip: { pointFormat: "<b>{point.percentage:.1f}%</b>" },
+        plotOptions: { pie: { dataLabels: { enabled: true, format: "{point.name}: {point.percentage:.1f}%" } } },
+        series: [{
+          name: "Action Taken",
+          data: [
+            { name: "No Change", y: 42 },
+            { name: "Substituted", y: 28 },
+            { name: "Stopped", y: 18 },
+            { name: "Dose Adjusted", y: 12 }
+          ]
+        }]
+      });
+
+      Highcharts.chart("chart-vl-overall", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["PLHIV", "Eligible for VL", "VL done"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [{
+          name: "Patients",
+          colorByPoint: true,
+          colors: ["#161059", "#00b9ab", "#ef7f1a"],
+          data: [1139605, 1127762, 861315],
+          dataLabels: {
+            enabled: true,
+            formatter: function () {
+              return Highcharts.numberFormat(this.y, 0);
+            }
+          }
+        }]
+      });
+
+      Highcharts.chart("chart-vl-median-year", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
+          title: { text: "Year of ART Initiation" }
+        },
+        yAxis: { min: 0, title: { text: "Median Months to 1st VL" } },
+        series: [{ name: "Median Time", color: "#00b9ab", data: [13.2, 11.8, 10.5, 8.9, 7.5, 6.8, 6.3, 5.9, 5.5] }]
+      });
+
+      Highcharts.chart("chart-vl-age-group", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["0-4", "5-9", "10-14", "15-19", "20-24", "25-34", "35-44", "45+"],
+          title: { text: "Age Group" }
+        },
+        yAxis: { min: 0, max: 100, title: { text: "VL Uptake (%)" } },
+        series: [{ name: "VL Uptake", color: "#161059", data: [63, 69, 72, 76, 79, 82, 84, 83] }]
+      });
+
+      Highcharts.chart("chart-vl-county", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Nairobi", "Kiambu", "Nakuru", "Kisumu", "Mombasa", "Kilifi", "Kakamega", "Homa Bay", "Migori", "Machakos"],
+          title: { text: "County" }
+        },
+        yAxis: { min: 0, max: 100, title: { text: "VL Uptake (%)" } },
+        series: [{ name: "VL Uptake", color: "#ff3d8d", data: [82, 81, 79, 78, 77, 75, 76, 74, 73, 75] }]
+      });
+
+      Highcharts.chart("chart-dsd-facility-models", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Facility Fast Track", "Facility Group", "Facility Differentiated Clinic", "Facility Refill"],
+          title: { text: "Facility DSD Model" }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [
+          { name: "Less Intense", color: "#00b9ab", data: [182400, 104300, 96300, 127100] },
+          { name: "More Intense", color: "#161059", data: [32600, 28100, 21400, 16820] }
+        ]
+      });
+
+      Highcharts.chart("chart-dsd-community-models", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Community Pharmacy", "Community ART Distribution Points", "Individual ART Distribution"],
+          title: { text: "Community DSD Model" }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [
+          { name: "Patients", color: "#ef7f1a", data: [154200, 173900, 132985] }
+        ]
+      });
+
+      Highcharts.chart("chart-dsd-art-months", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["<3", "3-5", "6+"],
+          title: { text: "Months of ART Distribution" }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [
+          { name: "Patients", colorByPoint: true, colors: ["#161059", "#00b9ab", "#ef7f1a"], data: [158600, 368450, 612555] }
+        ]
+      });
+
+      Highcharts.chart("chart-vl-outcomes-age-sex", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["M 0-14", "F 0-14", "M 15-24", "F 15-24", "M 25-34", "F 25-34", "M 35+", "F 35+"],
+          title: { text: "Age and Sex" }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { column: { stacking: "normal" } },
+        series: [
+          { name: "LDL", color: "#00b9ab", data: [7200, 6900, 35200, 38400, 85200, 101400, 156000, 172300] },
+          { name: "Unsuppressed", color: "#ef7f1a", data: [1900, 1700, 8400, 9100, 18100, 20100, 24100, 21805] },
+          { name: "STF", color: "#161059", data: [430, 390, 1800, 1950, 3900, 4200, 5200, 4635] }
+        ]
+      });
+
+      Highcharts.chart("chart-vl-suppression-age-group", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["0-4", "5-9", "10-14", "15-19", "20-24", "25-34", "35-44", "45+"],
+          title: { text: "Age Group" }
+        },
+        yAxis: { min: 0, max: 100, title: { text: "Suppression (%)" } },
+        series: [{ name: "Suppression <200 CPM", color: "#00b9ab", data: [77, 81, 84, 86, 88, 90, 91, 90] }]
+      });
+
+      Highcharts.chart("chart-vl-suppression-county", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Nairobi", "Kiambu", "Nakuru", "Kisumu", "Mombasa", "Kilifi", "Kakamega", "Homa Bay", "Migori", "Machakos"],
+          title: { text: "County" }
+        },
+        yAxis: { min: 0, max: 100, title: { text: "VL Suppression (%)" } },
+        series: [{ name: "VL Suppression", color: "#161059", data: [92, 91, 90, 89, 88, 87, 88, 86, 85, 87] }]
+      });
+
+      Highcharts.chart("chart-ahd-cd4-testing", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["At Risk", "CD4 Done", "CD4 with Results", "CD4 Results <200 or <25%"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [{ name: "Patients", color: "#00b9ab", data: [142860, 125440, 119220, 58610] }]
+      });
+
+      Highcharts.chart("chart-ahd-cm-tb-screening", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["CD4 <200", "Blood CrAg - Pos", "Blood CrAg - Neg", "LP for CSF Analysis", "LF LAM - Pos", "LF LAM - Neg", "GeneXpert"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { series: { stacking: "normal" } },
+        series: [
+          { name: "Positive", color: "#ef7f1a", data: [0, 14200, 0, 10280, 12410, 0, 8560] },
+          { name: "Negative", color: "#161059", data: [58610, 0, 44410, 0, 0, 46200, 0] }
+        ]
+      });
+
+      Highcharts.chart("chart-ahd-nutrition-adults", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Assessed", "Undernourished", "Managed", "Improved"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Adults" } },
+        series: [{ name: "Adults", color: "#00b9ab", data: [96400, 22850, 19800, 15220] }]
+      });
+
+      Highcharts.chart("chart-ahd-outcomes", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Current Cohort"],
+          title: { text: null }
+        },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        plotOptions: { column: { stacking: "normal" } },
+        series: [
+          { name: "Active", color: "#00b9ab", data: [102480] },
+          { name: "Died", color: "#161059", data: [11640] },
+          { name: "IIT", color: "#ef7f1a", data: [28740] }
+        ]
+      });
+
+      Highcharts.chart("chart-ncd-cascade", {
+        chart: { type: "heatmap", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: {
+          categories: ["Screening", "Diagnosis", "Treatment/Management", "Outcomes (VL Suppression)", "Controlled"],
+          title: { text: "Cascade Stage" }
+        },
+        yAxis: {
+          categories: ["Diabetes", "CaCx", "Breast", "Hypertension", "Chronic Kidney Disease", "Mental Health", "Obesity and Dyslipidemia"],
+          title: { text: "Condition" },
+          reversed: true
+        },
+        colorAxis: {
+          min: 35000,
+          max: 392000,
+          stops: [
+            [0, "#eef5ff"],
+            [0.45, "#86b8ff"],
+            [0.75, "#2f7ed8"],
+            [1, "#0b3f91"]
+          ]
+        },
+        tooltip: {
+          formatter: function () {
+            return "<b>" + this.series.yAxis.categories[this.point.y] + "</b><br/>" +
+              this.series.xAxis.categories[this.point.x] + ": <b>" + Highcharts.numberFormat(this.point.value, 0) + "</b>";
+          }
+        },
+        series: [{
+          name: "Patients",
+          borderWidth: 1,
+          borderColor: "#ffffff",
+          dataLabels: {
+            enabled: true,
+            color: "#0d1a23",
+            style: { textOutline: "none", fontSize: "9px" },
+            formatter: function () {
+              return Highcharts.numberFormat(this.point.value, 0);
+            }
+          },
+          data: [
+            [0, 0, 248000], [1, 0, 126000], [2, 0, 102600], [3, 0, 86400], [4, 0, 61200],
+            [0, 1, 214000], [1, 1, 96400], [2, 1, 76800], [3, 1, 64200], [4, 1, 43800],
+            [0, 2, 198000], [1, 2, 87200], [2, 2, 69400], [3, 2, 57900], [4, 2, 39400],
+            [0, 3, 392000], [1, 3, 208000], [2, 3, 164500], [3, 3, 136700], [4, 3, 98100],
+            [0, 4, 156000], [1, 4, 74200], [2, 4, 59300], [3, 4, 49800], [4, 4, 35700],
+            [0, 5, 171000], [1, 5, 88300], [2, 5, 69100], [3, 5, 58200], [4, 5, 42200],
+            [0, 6, 183000], [1, 6, 91500], [2, 6, 74400], [3, 6, 62100], [4, 6, 45100]
+          ]
+        }]
+      });
+
+    }
+
+    function setActiveHivTab(targetId) {
+      const tabs = document.querySelectorAll(".hiv-tab");
+      const views = document.querySelectorAll(".hiv-view");
+
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.target === targetId;
+        tab.classList.toggle("active", isActive);
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      views.forEach((view) => {
+        view.classList.toggle("active", view.id === targetId);
+      });
+
+      // Reflow charts when a hidden tab becomes visible.
+      if (typeof Highcharts !== "undefined" && Highcharts.charts) {
+        window.setTimeout(() => {
+          Highcharts.charts.forEach((chart) => {
+            if (chart && chart.renderTo && chart.renderTo.offsetParent !== null) {
+              chart.reflow();
+            }
+          });
+        }, 60);
+      }
+    }
+
+    function updateActiveTopNav() {
+      const current = window.location.hash || "#home";
+      document.querySelectorAll(".top-nav a").forEach((link) => {
+        const href = link.getAttribute("href");
+        const isHivTreatment = href === "#hiv-treatment/newly-started" && current.startsWith("#hiv-treatment");
+        link.classList.toggle("active", href === current || isHivTreatment);
+      });
+    }
+
+    function updatePageViewByHash() {
+      const hash = window.location.hash || "#home";
+      const showHivTreatment = hash.startsWith("#hiv-treatment");
+      document.body.classList.toggle("show-hiv-treatment", showHivTreatment);
+    }
+
+    function applyHashDrivenHivTab() {
+      const hash = window.location.hash || "";
+      if (!hash.startsWith("#hiv-treatment")) {
+        return;
+      }
+
+      const slug = hash.includes("/") ? hash.split("/")[1] : "newly-started";
+      const tab = document.querySelector('.hiv-tab[data-slug="' + slug + '"]') || document.querySelector('.hiv-tab[data-slug="newly-started"]');
+      if (tab) {
+        setActiveHivTab(tab.dataset.target);
+      }
+
+      const hivTreatmentSection = document.getElementById("hiv-treatment");
+      if (hivTreatmentSection) {
+        hivTreatmentSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    document.querySelectorAll(".hiv-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        setActiveHivTab(tab.dataset.target);
+        const slug = tab.dataset.slug || "newly-started";
+        window.history.replaceState(null, "", "#hiv-treatment/" + slug);
+        updateActiveTopNav();
+      });
+
+      tab.addEventListener("keydown", (event) => {
+        const tabs = Array.from(document.querySelectorAll(".hiv-tab"));
+        const currentIndex = tabs.indexOf(tab);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          tabs[(currentIndex + 1) % tabs.length].focus();
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          tabs[(currentIndex - 1 + tabs.length) % tabs.length].focus();
+        }
+        if (event.key === "Home") {
+          event.preventDefault();
+          tabs[0].focus();
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          tabs[tabs.length - 1].focus();
+        }
+      });
+    });
+
+    function setActiveVlTab(targetId) {
+      const tabs = document.querySelectorAll(".vl-tab");
+      const views = document.querySelectorAll(".vl-view");
+
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.target === targetId;
+        tab.classList.toggle("active", isActive);
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      views.forEach((view) => {
+        view.classList.toggle("active", view.id === targetId);
+      });
+
+      if (typeof Highcharts !== "undefined" && Highcharts.charts) {
+        window.setTimeout(() => {
+          Highcharts.charts.forEach((chart) => {
+            if (chart && chart.renderTo && chart.renderTo.offsetParent !== null) {
+              chart.reflow();
+            }
+          });
+        }, 60);
+      }
+    }
+
+    document.querySelectorAll(".vl-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        setActiveVlTab(tab.dataset.target);
+      });
+
+      tab.addEventListener("keydown", (event) => {
+        const tabs = Array.from(document.querySelectorAll(".vl-tab"));
+        const currentIndex = tabs.indexOf(tab);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          tabs[(currentIndex + 1) % tabs.length].focus();
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          tabs[(currentIndex - 1 + tabs.length) % tabs.length].focus();
+        }
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      updatePageViewByHash();
+      updateActiveTopNav();
+      applyHashDrivenHivTab();
+    });
+    updatePageViewByHash();
+    updateActiveTopNav();
+    applyHashDrivenHivTab();
+
+    const hivTreatmentNavLink = document.querySelector('.top-nav a[href="#hiv-treatment/newly-started"]');
+    if (hivTreatmentNavLink) {
+      hivTreatmentNavLink.addEventListener("click", () => {
+        document.body.classList.add("show-hiv-treatment");
+        setActiveHivTab("view-newly-started");
+        initializeHivCharts();
+        window.history.replaceState(null, "", "#hiv-treatment/newly-started");
+        updateActiveTopNav();
+      });
+    }
+
+    const backToTopButton = document.getElementById("back-to-top");
+    if (backToTopButton) {
+      window.addEventListener("scroll", () => {
+        backToTopButton.classList.toggle("visible", window.scrollY > 360);
+      });
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    initializeHivCharts();
+  </script>
+</body>
+</html>
