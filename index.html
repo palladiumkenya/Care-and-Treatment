@@ -1109,7 +1109,60 @@
 
           <section id="view-current-on-art" class="hiv-view" role="tabpanel" aria-labelledby="tab-current-on-art">
             <div class="hiv-banner">Current On ART</div>
-            <div class="hiv-placeholder">Current on ART metrics and trend charts will appear in this tab.</div>
+
+            <div class="hiv-definition">Indicator Definition: Current on ART is the number of adults and children currently receiving ART including those who missed appointment and 30 days have not passed since last missed appointment.</div>
+
+            <div class="hiv-kpis">
+              <article class="hiv-kpi">
+                <h4>Total Current on ART</h4>
+                <p>1,139,605</p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Verified and Current on ART</h4>
+                <p>913,106 <span class="hiv-share">80.1%</span></p>
+              </article>
+              <article class="hiv-kpi">
+                <h4>Not Verified and Current on ART</h4>
+                <p>226,499 <span class="hiv-share">19.9%</span></p>
+              </article>
+            </div>
+
+            <div class="hiv-extra-charts">
+              <section class="hiv-wide-chart">
+                <h4>Current On ART Verified vs Not Verified</h4>
+                <div id="chart-current-verified-pie" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Verified and Current on ART by Age Group and Sex</h4>
+                <div id="chart-current-age-sex" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Children &lt;15 on ART and Verified</h4>
+                <div id="chart-current-children" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Adults 15+ on ART and Verified</h4>
+                <div id="chart-current-adults" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Verified and Current on ART Distribution by County</h4>
+                <div id="chart-current-county" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Verified and Current on ART Distribution by Partner</h4>
+                <div id="chart-current-partner" class="chart-host"></div>
+              </section>
+
+              <section class="hiv-wide-chart">
+                <h4>Current on ART Compared to Verified Current on ART</h4>
+                <div id="chart-current-vs-verified" class="chart-host"></div>
+              </section>
+            </div>
           </section>
 
           <section id="view-art-optimization" class="hiv-view" role="tabpanel" aria-labelledby="tab-art-optimization">
@@ -1493,6 +1546,9 @@
       const maleAge = [6, 29, 7, 12, 11, 73, 119, 185, 178, 188, 141, 103, 63, 37, 35];
       const cohortAgeCats = ["0-4", "5-9", "10-14", "15-19", "20-24", "25-34", "35-44", "45+"];
       const cohortCounties = ["Nairobi", "Kiambu", "Nakuru", "Kisumu", "Mombasa", "Kilifi", "Kakamega", "Homa Bay", "Migori", "Machakos"];
+      const currentAgeCats = ["Under 1", "01 to 04", "05 to 09", "10 to 14", "15 to 19", "20 to 24", "25 to 29", "30 to 34", "35 to 39", "40 to 44", "45 to 49", "50 to 54", "55 to 59", "60 to 64", "65+"];
+      const currentCountyCats = ["Nairobi", "Kiambu", "Nakuru", "Kisumu", "Mombasa", "Kilifi", "Kakamega", "Homa Bay", "Migori", "Machakos"];
+      const currentPartnerCats = ["CHS", "FHI360", "EGPAF", "JHPIEGO", "AMPATH", "CIHEB", "LVCT", "MSF", "DOD", "KEMRI"];
 
       Highcharts.chart("chart-newly-sex", {
         chart: { type: "pie", backgroundColor: "#fff" },
@@ -1572,6 +1628,95 @@
         series: [
           { name: "Tx_Curr", color: "#161059", data: [1092000, 1097500, 1101200, 1105800, 1110400, 1113300, 1117200, 1120500, 1124200, 1127800, 1131800, 1139605] },
           { name: "Ever on TPT", color: "#ff3d8d", data: [780000, 786500, 792000, 798500, 804500, 810000, 816000, 822500, 828000, 834000, 839000, 845000] }
+        ]
+      });
+
+      Highcharts.chart("chart-current-verified-pie", {
+        chart: { type: "pie", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        colors: ["#00b9ab", "#ef7f1a"],
+        tooltip: { pointFormat: "<b>{point.y:,.0f}</b> ({point.percentage:.1f}%)" },
+        plotOptions: {
+          pie: {
+            dataLabels: {
+              enabled: true,
+              format: "{point.name}: {point.percentage:.1f}%"
+            }
+          }
+        },
+        series: [{
+          name: "Patients",
+          data: [
+            { name: "Verified", y: 913106 },
+            { name: "Not Verified", y: 226499 }
+          ]
+        }]
+      });
+
+      Highcharts.chart("chart-current-age-sex", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: currentAgeCats, title: { text: "Age Group" } },
+        yAxis: { min: 0, title: { text: "Verified Current on ART" } },
+        series: [
+          { name: "Male", color: "#161059", data: [120, 1100, 3200, 4100, 9800, 26200, 44600, 71800, 86400, 90300, 81000, 65300, 49200, 32100, 18800] },
+          { name: "Female", color: "#ff3d8d", data: [110, 980, 3000, 3858, 11200, 38500, 68200, 102400, 116300, 119800, 103500, 82400, 59500, 37300, 21038] }
+        ]
+      });
+
+      Highcharts.chart("chart-current-children", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: ["Under 1", "01 to 04", "05 to 09", "10 to 14"], title: { text: "Age Group" } },
+        yAxis: { min: 0, title: { text: "Children Verified" } },
+        series: [
+          { name: "Male", color: "#161059", data: [120, 1100, 3200, 4100] },
+          { name: "Female", color: "#ff3d8d", data: [110, 980, 3000, 3858] }
+        ]
+      });
+
+      Highcharts.chart("chart-current-adults", {
+        chart: { type: "bar", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: ["15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"], title: { text: "Age Group" } },
+        yAxis: { min: 0, title: { text: "Adults Verified" } },
+        series: [
+          { name: "Male", color: "#161059", data: [9800, 26200, 44600, 71800, 86400, 90300, 81000, 65300, 49200, 32100, 18800] },
+          { name: "Female", color: "#ff3d8d", data: [11200, 38500, 68200, 102400, 116300, 119800, 103500, 82400, 59500, 37300, 21038] }
+        ]
+      });
+
+      Highcharts.chart("chart-current-county", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: currentCountyCats, title: { text: "County" } },
+        yAxis: { min: 0, max: 100, title: { text: "Verified (%)" } },
+        series: [{ name: "Verified %", color: "#00b9ab", data: [83, 83, 79, 82, 78, 77, 81, 76, 73, 84] }]
+      });
+
+      Highcharts.chart("chart-current-partner", {
+        chart: { type: "column", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: currentPartnerCats, title: { text: "Partner" } },
+        yAxis: { min: 0, max: 100, title: { text: "Verified (%)" } },
+        series: [{ name: "Verified %", color: "#161059", data: [81, 79, 75, 89, 78, 80, 79, 77, 90, 84] }]
+      });
+
+      Highcharts.chart("chart-current-vs-verified", {
+        chart: { type: "line", backgroundColor: "#fff" },
+        title: { text: null },
+        credits: { enabled: true },
+        xAxis: { categories: months12, title: { text: "Months" } },
+        yAxis: { min: 0, title: { text: "Patients" } },
+        series: [
+          { name: "Current on ART", color: "#ef7f1a", data: [1092000, 1097500, 1101200, 1105800, 1110400, 1113300, 1117200, 1120500, 1124200, 1127800, 1131800, 1139605] },
+          { name: "Verified Current on ART", color: "#00b9ab", data: [874000, 878400, 881300, 885000, 888700, 891000, 894200, 896800, 899700, 902500, 906200, 913106] }
         ]
       });
 
